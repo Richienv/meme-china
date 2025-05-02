@@ -23,7 +23,7 @@ const isLocalStorageAvailable = (): boolean => {
     localStorage.setItem(testKey, testKey);
     localStorage.removeItem(testKey);
     return true;
-  } catch (e) {
+  } catch (_) {
     return false;
   }
 };
@@ -89,7 +89,7 @@ export const saveCard = async (card: Card): Promise<boolean> => {
     
     // Check current storage usage
     const currentUsage = logStorageUsage();
-    let optimizationLevel: 'NORMAL' | 'AGGRESSIVE' = currentUsage > OPTIMIZATION_THRESHOLD ? 'AGGRESSIVE' : 'NORMAL';
+    const optimizationLevel: 'NORMAL' | 'AGGRESSIVE' = currentUsage > OPTIMIZATION_THRESHOLD ? 'AGGRESSIVE' : 'NORMAL';
     
     // Optimize image storage if needed
     const optimizedCards = await optimizeCardsForStorage(cards, optimizationLevel);

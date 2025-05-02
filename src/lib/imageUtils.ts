@@ -84,7 +84,7 @@ export const calculateBase64Size = (base64String: string): number => {
 };
 
 // Helper function to apply a class to all child elements
-const applyClassToAllElements = (element: HTMLElement, className: string): void => {
+export const applyClassToAllElements = (element: HTMLElement, className: string): void => {
   element.classList.add(className);
   const children = element.querySelectorAll('*');
   children.forEach(child => {
@@ -95,7 +95,7 @@ const applyClassToAllElements = (element: HTMLElement, className: string): void 
 };
 
 // Helper function to explicitly convert any OKLCH colors to RGB
-const convertOklchToRGB = (element: HTMLElement): void => {
+export const convertOklchToRGB = (element: HTMLElement): void => {
   // Function to extract and log computed styles
   const logComputedStyles = (el: HTMLElement, prefix = '') => {
     const styles = window.getComputedStyle(el);
@@ -159,7 +159,7 @@ const convertOklchToRGB = (element: HTMLElement): void => {
 };
 
 // Function to create a simplified export-friendly version of a card component
-const createExportFriendlyCard = (card: Card): HTMLElement => {
+export const createExportFriendlyCard = (card: Card): HTMLElement => {
   // Create a container for the card
   const container = document.createElement('div');
   container.style.position = 'relative';

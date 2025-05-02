@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Toggle } from '@/components/ui/toggle';
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
@@ -24,7 +24,6 @@ export default function MyCardsPage() {
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.GALLERY);
   const [activeFilter, setActiveFilter] = useState<FilterType>(FilterType.ALL);
-  const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -175,7 +174,7 @@ export default function MyCardsPage() {
     );
     
     // Calculate range of visible pages
-    let startPage = Math.max(2, currentPage - Math.floor(maxVisiblePages / 2));
+    const startPage = Math.max(2, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 3);
     
     // Adjust start if end is too close to total
