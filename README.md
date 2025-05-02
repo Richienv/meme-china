@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chinese Memory Cards Application
+
+A modern, minimalist web application that helps beginner-to-intermediate learners of Mandarin Chinese master sentences through user-created, image-anchored memory cards.
+
+## Features
+
+- **Create Personalized Memory Cards**: Upload images and add Chinese text (Hanzi, Pinyin, and translations)
+- **Three Card Template Styles**:
+  - Meme Style: Impact font with black outline
+  - Subtitle Style: Semi-transparent bar at bottom with text
+  - Sticky Note Style: Hand-drawn frame around text
+- **Dual View Modes**:
+  - List View: Shows text-focused entries in a list format
+  - Gallery View: Displays a grid of image thumbnails
+- **Organization Features**:
+  - Flag cards for review
+  - Filter by All/New/Flagged cards
+  - Download individual cards as PNG
+  - Export all cards as JSON backup
+- **Zero-Backend Architecture**:
+  - All data stored locally in browser
+  - No account creation needed
+
+## Technologies Used
+
+- **Framework**: Next.js with App Router
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Storage**: Browser LocalStorage
+- **Image Processing**: html2canvas for PNG export
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 16.0 or later
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/chinese-memory-app.git
+   cd chinese-memory-app
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-## Learn More
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Creating Cards**:
+   - Click "Create Your First Card" on the landing page
+   - Upload an image (meme, movie still, or personal photo)
+   - Add your Chinese sentence with pinyin and translation
+   - Choose a template style
+   - Save the card
 
-## Deploy on Vercel
+2. **Reviewing Cards**:
+   - Visit the "My Cards" dashboard
+   - Switch between List and Gallery views
+   - Click on cards to view details
+   - Flag important cards for review
+   - Filter by new or flagged cards
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Exporting Cards**:
+   - Download individual cards as PNG images
+   - Export your entire collection as a JSON file for backup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Goal
+
+The goal of this application is to help Chinese learners create a collection of personalized, visually anchored memory aids. By attaching Chinese sentences to images that are meaningful to the learner, we leverage the power of visual memory and personal connection to enhance language retention.
+
+The recommended usage pattern is to create approximately 24 cards over a 3-day period, focusing on sentences and vocabulary relevant to your current learning goals.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
