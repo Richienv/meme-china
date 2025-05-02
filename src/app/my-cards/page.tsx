@@ -331,7 +331,7 @@ export default function MyCardsPage() {
           <CardContent className="bg-gray-900 p-4 md:p-6">
             {filteredCards.length === 0 ? (
               <div className="text-center py-12 px-4">
-                <p className="text-gray-400 mb-4">No cards found. Let's create your first card!</p>
+                <p className="text-gray-400 mb-4">No cards found. Let&apos;s create your first card!</p>
                 <Button 
                   onClick={handleCreateNewCard}
                   className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white"
