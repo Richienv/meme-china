@@ -18,7 +18,7 @@ export const fileToBase64 = (file: File): Promise<string> => {
 export const compressImage = (
   base64Image: string, 
   maxWidth = 800, 
-  maxHeight = 800, 
+  maxHeight = 1000, // Changed from 800 to 1000 for 4:5 ratio
   quality = 0.8
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -29,16 +29,19 @@ export const compressImage = (
       let width = img.width;
       let height = img.height;
       
-      if (width > height) {
-        if (width > maxWidth) {
-          height = Math.round(height * (maxWidth / width));
-          width = maxWidth;
-        }
+      // Target aspect ratio is 4:5
+      const targetRatio = 4/5;
+      const imgRatio = width / height;
+      
+      // Determine how to resize based on aspect ratio
+      if (imgRatio > targetRatio) {
+        // Image is wider than 4:5, constrain by width
+        width = maxWidth;
+        height = width / imgRatio;
       } else {
-        if (height > maxHeight) {
-          width = Math.round(width * (maxHeight / height));
-          height = maxHeight;
-        }
+        // Image is taller than 4:5, constrain by height
+        height = maxHeight;
+        width = height * imgRatio;
       }
       
       // Create a canvas to draw the resized image
@@ -160,11 +163,11 @@ export const convertOklchToRGB = (element: HTMLElement): void => {
 
 // Function to create a simplified export-friendly version of a card component
 export const createExportFriendlyCard = (card: Card): HTMLElement => {
-  // Create a container for the card
+  // Create a container for the card - 4:5 aspect ratio
   const container = document.createElement('div');
   container.style.position = 'relative';
   container.style.width = '400px';
-  container.style.height = '400px';
+  container.style.height = '500px'; // Changed from 400px to 500px for 4:5 ratio
   container.style.overflow = 'hidden';
   container.style.backgroundColor = 'white';
   container.style.borderRadius = '8px';
@@ -361,10 +364,10 @@ export const downloadCardAsPNG = (cardElement: HTMLElement, filename: string): v
   
   console.log('Found card data for rendering:', card);
   
-  // Create a canvas element
+  // Create a canvas element - 4:5 aspect ratio
   const canvas = document.createElement('canvas');
   const width = 800;
-  const height = 800;
+  const height = 1000; // Changed from 800 to 1000 for 4:5 ratio
   canvas.width = width;
   canvas.height = height;
   

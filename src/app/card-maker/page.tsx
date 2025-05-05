@@ -193,7 +193,7 @@ export default function CardMakerPage() {
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
                     </div>
                   ) : uploadedImage ? (
-                    <div className="relative aspect-video w-full overflow-hidden rounded-md">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md">
                       <Image 
                         src={uploadedImage} 
                         alt="Preview" 
@@ -290,7 +290,7 @@ export default function CardMakerPage() {
                   <div className="p-4 bg-gray-800 rounded-lg border border-gray-700">
                     <TabsContent value={CardTemplateType.MEME_STYLE}>
                       <p className="text-sm text-center text-gray-400 mb-2">Impact font with black outline</p>
-                      <div className="bg-gray-700 aspect-video rounded-md flex items-center justify-center">
+                      <div className="bg-gray-700 aspect-[4/5] rounded-md flex items-center justify-center">
                         <p className="text-xl font-bold" style={{ 
                           fontFamily: 'Impact, Haettenschweiler, Arial Narrow Bold, sans-serif',
                           textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
@@ -303,7 +303,7 @@ export default function CardMakerPage() {
                     
                     <TabsContent value={CardTemplateType.SUBTITLE_STYLE}>
                       <p className="text-sm text-center text-gray-400 mb-2">Semi-transparent bar at bottom</p>
-                      <div className="bg-gray-700 aspect-video rounded-md relative">
+                      <div className="bg-gray-700 aspect-[4/5] rounded-md relative">
                         <div className="absolute bottom-0 w-full bg-black/70 text-white p-2">
                           <p className="text-center">
                             {formValues.hanziText || "样本文本 / Sample Text"}
@@ -314,7 +314,7 @@ export default function CardMakerPage() {
                     
                     <TabsContent value={CardTemplateType.STICKY_NOTE_STYLE}>
                       <p className="text-sm text-center text-gray-400 mb-2">Hand-drawn style frame</p>
-                      <div className="bg-gray-700 aspect-video rounded-md flex items-center justify-center">
+                      <div className="bg-gray-700 aspect-[4/5] rounded-md flex items-center justify-center">
                         <div className="bg-yellow-100 p-3 rotate-1 shadow-md" style={{ 
                           border: '1px solid #e0e0e0',
                           boxShadow: '2px 2px 5px rgba(0,0,0,0.3)'
