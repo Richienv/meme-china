@@ -1,0 +1,40 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e; stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#000000; stop-opacity:1"/>
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="none"/>
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#333" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+  <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
+  
+  <!-- Wing Chun Dummy Silhouette -->
+  <g opacity="0.3" transform="translate(400, 300)">
+    <rect x="-15" y="-200" width="30" height="350" fill="#5c3d2e" /> <!-- Main pole -->
+    <rect x="-100" y="-150" width="200" height="20" rx="10" fill="#5c3d2e" /> <!-- Upper arm -->
+    <rect x="-100" y="-50" width="200" height="20" rx="10" fill="#5c3d2e" /> <!-- Middle arm -->
+    <rect x="-100" y="50" width="200" height="20" rx="10" fill="#5c3d2e" /> <!-- Lower arm -->
+    
+    <!-- Stand base -->
+    <rect x="-60" y="150" width="120" height="20" fill="#5c3d2e" />
+    <rect x="-80" y="170" width="160" height="10" fill="#5c3d2e" />
+  </g>
+  
+  <!-- Wing Chun Stance Silhouette -->
+  <g opacity="0.15">
+    <!-- Body silhouette of person in fighting stance -->
+    <path d="M300,200 Q320,210 330,250 Q340,300 335,350 L365,350 Q360,300 370,250 Q380,210 400,200 Q370,180 350,190 Q330,180 300,200 Z" fill="#fff"/>
+    <rect x="335" y="350" width="10" height="100" fill="#fff" /> <!-- Left leg -->
+    <rect x="355" y="350" width="10" height="100" fill="#fff" /> <!-- Right leg -->
+    <path d="M280,230 L330,250 L335,300" fill="none" stroke="#fff" stroke-width="5"/> <!-- Left arm -->
+    <path d="M420,230 L370,250 L365,300" fill="none" stroke="#fff" stroke-width="5"/> <!-- Right arm -->
+  </g>
+  
+  <!-- Chinese character for "Ten Men" -->
+  <text x="400" y="500" font-family="Arial, sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="#fff" opacity="0.15">十人</text>
+</svg> 

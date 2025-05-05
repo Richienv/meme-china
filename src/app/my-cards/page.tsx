@@ -88,7 +88,7 @@ export default function MyCardsPage() {
   }, [filteredCards, currentPage, pageSize]);
 
   const handleCreateNewCard = () => {
-    router.push('/create');
+    router.push('/card-maker');
   };
 
   const handleToggleReview = (cardId: string) => {

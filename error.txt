@@ -1,0 +1,61 @@
+[16:20:13.651] Running build in Washington, D.C., USA (East) – iad1
+[16:20:13.668] Cloning github.com/Richienv/meme-china (Branch: main, Commit: 8681623)
+[16:20:13.843] Previous build caches not available
+[16:20:13.993] Cloning completed: 324.000ms
+[16:20:15.445] Running "vercel build"
+[16:20:15.838] Vercel CLI 41.7.0
+[16:20:16.144] Installing dependencies...
+[16:20:30.078] 
+[16:20:30.078] added 471 packages in 14s
+[16:20:30.079] 
+[16:20:30.079] 152 packages are looking for funding
+[16:20:30.079]   run `npm fund` for details
+[16:20:30.141] Detected Next.js version: 15.3.1
+[16:20:30.145] Running "npm run build"
+[16:20:30.258] 
+[16:20:30.259] > chinese-memory-app@0.1.0 build
+[16:20:30.259] > next build
+[16:20:30.259] 
+[16:20:30.853] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[16:20:30.854] This information is used to shape Next.js' roadmap and prioritize features.
+[16:20:30.854] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[16:20:30.855] https://nextjs.org/telemetry
+[16:20:30.855] 
+[16:20:30.956]    ▲ Next.js 15.3.1
+[16:20:30.956] 
+[16:20:30.985]    Creating an optimized production build ...
+[16:20:43.497]  ✓ Compiled successfully in 9.0s
+[16:20:43.502]    Linting and checking validity of types ...
+[16:20:48.529] 
+[16:20:48.535] Failed to compile.
+[16:20:48.535] 
+[16:20:48.536] ./src/app/my-cards/page.tsx
+[16:20:48.536] 3:38  Error: 'useRef' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.536] 6:41  Error: 'CardTitle' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.536] 7:16  Error: 'TabsContent' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.536] 27:10  Error: 'selectedCard' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.537] 27:24  Error: 'setSelectedCard' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.537] 178:9  Error: 'startPage' is never reassigned. Use 'const' instead.  prefer-const
+[16:20:48.537] 334:70  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+[16:20:48.537] 
+[16:20:48.537] ./src/app/page.tsx
+[16:20:48.537] 7:16  Error: 'CardContent' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.538] 7:29  Error: 'CardDescription' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.538] 7:46  Error: 'CardFooter' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.538] 7:58  Error: 'CardHeader' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.540] 7:70  Error: 'CardTitle' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.540] 
+[16:20:48.540] ./src/lib/imageUtils.ts
+[16:20:48.540] 87:7  Error: 'applyClassToAllElements' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.541] 98:7  Error: 'convertOklchToRGB' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.541] 162:7  Error: 'createExportFriendlyCard' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.541] 
+[16:20:48.541] ./src/lib/storage.ts
+[16:20:48.541] 26:12  Error: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.545] 63:12  Error: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+[16:20:48.545] 92:9  Error: 'optimizationLevel' is never reassigned. Use 'const' instead.  prefer-const
+[16:20:48.545] 
+[16:20:48.546] info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+[16:20:48.569] Error: Command "npm run build" exited with 1
+[16:20:48.863] 
+[16:20:51.925] Exiting build container
