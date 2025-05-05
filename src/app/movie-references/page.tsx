@@ -6,6 +6,18 @@ import { Card } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 // Types
 type MovieCard = {
@@ -225,6 +237,100 @@ const markCardAsViewed = (cardId: string): void => {
   } catch (error) {
     console.error('Error marking card as viewed:', error);
   }
+};
+
+// Add new functions:
+
+// Function to download card as image
+const downloadCardAsImage = (card: MovieCard): void => {
+  // Use an off-screen canvas to render the card
+  const canvas = document.createElement('canvas');
+  const width = 500;
+  const height = 800;
+  canvas.width = width;
+  canvas.height = height;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  
+  // Fill with gradient background
+  const gradient = ctx.createLinearGradient(0, 0, 0, height);
+  gradient.addColorStop(0, '#1a1a2e');
+  gradient.addColorStop(1, '#16213e');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+  
+  // Draw card content directly
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  
+  // Draw Pinyin
+  ctx.font = 'bold 40px Arial';
+  ctx.fillText(card.pinyin, width/2, height/3);
+  
+  // Draw Chinese
+  ctx.font = 'bold 36px Arial';
+  ctx.fillText(card.chinesePhrase, width/2, height/2);
+  
+  // Draw translation
+  ctx.font = '28px Arial';
+  ctx.fillText(card.translation, width/2, height/2 + 100);
+  
+  // Draw movie title and year
+  ctx.font = 'italic 20px Arial';
+  ctx.fillText(`${card.movieTitle} (${card.year})`, width/2, height - 100);
+  
+  // HSK Level indicator
+  ctx.fillStyle = '#4a72b0';
+  ctx.beginPath();
+  ctx.arc(width - 60, 60, 30, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 18px Arial';
+  ctx.fillText(`HSK ${card.difficulty}`, width - 60, 65);
+  
+  try {
+    // Convert to PNG and trigger download
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `chinese-reference-${card.id}.png`;
+    link.href = dataUrl;
+    link.click();
+  } catch (e) {
+    console.error('Error creating downloadable image:', e);
+    alert('Failed to create the image. Please try again.');
+  }
+};
+
+// Function to copy text to clipboard
+const copyToClipboard = (text: string): void => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      alert('Copied to clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to copy text: ', err);
+      alert('Failed to copy text. Please try again.');
+    });
+};
+
+// Function to share card via Web Share API
+const shareCard = (card: MovieCard): void => {
+  if (!navigator.share) {
+    alert('Web Share API is not supported in your browser. You can copy the text instead.');
+    return;
+  }
+  
+  const shareData = {
+    title: `Learn Chinese: ${card.movieTitle}`,
+    text: `${card.pinyin}\n${card.chinesePhrase}\n${card.translation}\nFrom: ${card.movieTitle} (${card.year})`,
+    // If we had an actual deployed URL, we could add that here
+  };
+  
+  navigator.share(shareData)
+    .then(() => console.log('Shared successfully'))
+    .catch((err) => console.error('Error sharing:', err));
 };
 
 export default function MovieReferencesPage() {
@@ -741,6 +847,72 @@ export default function MovieReferencesPage() {
                       <span className="absolute -right-1 bottom-0 text-white/20 text-2xl">"</span>
                     </div>
                     
+                    {/* Interaction buttons for saved cards */}
+                    <div className="flex items-center justify-end mt-2 mb-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                copyToClipboard(`${card.pinyin}\n${card.chinesePhrase}\n${card.translation}`);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80 mr-2"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Copy text</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                downloadCardAsImage(card);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80 mr-2"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Download as image</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                shareCard(card);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Share card</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                    
                     {/* Movie details and card counter */}
                     <div className="flex items-center">
                       <div className="w-5 h-5 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mr-2">
@@ -853,7 +1025,7 @@ export default function MovieReferencesPage() {
                   
                   {/* Quote and attribution area - improved to show full content */}
                   <div className="w-full px-5 py-6 bg-gradient-to-t from-black/95 to-black/20 mt-auto">
-                    {/* Quote content with elegant styling - improved for full display */}
+                    {/* Quote content with elegant styling - improved to show complete quote */}
                     <div className="relative mb-3">
                       {/* Left quote mark */}
                       <span className="absolute -left-1 -top-3 text-white/20 text-2xl">"</span>
@@ -869,6 +1041,72 @@ export default function MovieReferencesPage() {
                       
                       {/* Right quote mark */}
                       <span className="absolute -right-1 bottom-0 text-white/20 text-2xl">"</span>
+                    </div>
+                    
+                    {/* Interaction buttons for current card */}
+                    <div className="flex items-center justify-end mt-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering card swipe
+                                copyToClipboard(`${availableCards[currentCardIndex].pinyin}\n${availableCards[currentCardIndex].chinesePhrase}\n${availableCards[currentCardIndex].translation}`);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80 mr-2"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Copy text</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering card swipe
+                                downloadCardAsImage(availableCards[currentCardIndex]);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80 mr-2"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Download as image</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering card swipe
+                                shareCard(availableCards[currentCardIndex]);
+                              }}
+                              className="rounded-full w-8 h-8 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/80"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Share card</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     
                     {/* Movie details and card counter */}
